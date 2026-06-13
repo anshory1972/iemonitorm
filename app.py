@@ -417,6 +417,19 @@ with tab_map:
     if map_prov_filter != "All":
         map_data = map_data[map_data["provname"] == map_prov_filter]
         zoom = 6.5
+        # Compute center from GeoJSON bounding boxes of matching districts
+        prov_pcodes = set(map_data["pcode"])
+        lats, lons = [], []
+        for f in geo["features"]:
+            if f["properties"]["pcode"] in prov_pcodes:
+                coords = f["geometry"]["coordinates"]
+                rings = coords[0] if f["geometry"]["type"] == "Polygon" \
+                        else [pt for part in coords for ring in part for pt in ring]
+                lons.extend(c[0] for c in rings)
+                lats.extend(c[1] for c in rings)
+        if lats:
+            center_lat = (min(lats) + max(lats)) / 2
+            center_lon = (min(lons) + max(lons)) / 2
 
     def make_map(color_col, title, color_scale, range_col, colorbar_title, suffix=""):
         fig = px.choropleth_mapbox(
