@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.env
+*.log
+streamlit_out.txt
+streamlit_err.txt
+s_final.png
+dofiles/
+calc_ie_ee.py
+study_pip.py
+ss.py
