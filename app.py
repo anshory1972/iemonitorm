@@ -493,7 +493,7 @@ Susenas Maret 2025.</span>
         st.markdown("""
 **Survey:** Susenas Maret 2025 (National Socioeconomic Survey, March wave)
 **Publisher:** Badan Pusat Statistik (BPS)
-**Coverage:** National, representative at province level
+**Coverage:** National, representative at district level
 **Sample:**
 - Household file: ~343,000 households
 - Individual file: ~1.17 million individuals
