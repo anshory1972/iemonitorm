@@ -281,6 +281,9 @@ st.markdown(f"""
   <div>
     <div style="font-size:1.5rem;font-weight:700;color:#1a3358;line-height:1.2">
       Indonesia Social Protection Targeting Monitor
+      <span style="font-size:0.65rem;font-weight:700;color:#1a3358;background:#f5ecd2;
+                   border:1px solid #c8a84b;border-radius:3px;padding:0.1rem 0.4rem;
+                   vertical-align:middle;letter-spacing:0.05em">BETA</span>
     </div>
     <div style="font-size:0.85rem;color:#c8a84b;font-weight:600;margin-top:0.15rem">
       Dewan Ekonomi Nasional &nbsp;·&nbsp; Susenas Maret 2025
