@@ -429,7 +429,7 @@ with tab_prov:
             labels={ee_col: "EE (%)", "provname": ""},
         )
         fig_ee.update_layout(height=750, coloraxis_showscale=False,
-                             margin=dict(l=0), yaxis=dict(tickfont=dict(size=9), tickmode="linear", dtick=1))
+                             margin=dict(l=0), yaxis=dict(tickfont=dict(size=11), tickmode="linear", dtick=1))
         st.plotly_chart(fig_ee, use_container_width=True)
 
     with chart_col2:
@@ -441,7 +441,7 @@ with tab_prov:
             labels={ie_col: "IE (%)", "provname": ""},
         )
         fig_ie.update_layout(height=750, coloraxis_showscale=False,
-                             margin=dict(l=0), yaxis=dict(tickfont=dict(size=9), tickmode="linear", dtick=1))
+                             margin=dict(l=0), yaxis=dict(tickfont=dict(size=11), tickmode="linear", dtick=1))
         st.plotly_chart(fig_ie, use_container_width=True)
 
     base = prov_df[["prov", "provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
