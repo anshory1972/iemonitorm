@@ -108,10 +108,7 @@ section[data-testid="stSidebar"] .stCheckbox {
 
 /* Compact dataframe on mobile */
 @media (max-width: 768px) {
-    [data-testid="stDataFrame"] td,
-    [data-testid="stDataFrame"] th { font-size: 0.72rem !important; }
-    [data-testid="stDataFrame"] th { font-weight: 700 !important; }
-    [data-testid="stDataFrame"] td { font-weight: 400 !important; }
+    [data-testid="stDataFrame"] { font-size: 0.72rem !important; }
 }
 
 /* Info boxes */
