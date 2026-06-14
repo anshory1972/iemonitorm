@@ -405,9 +405,9 @@ with tab_dist:
     if kab_search:
         d = d[d["kabname"].str.contains(kab_search, case=False)]
 
-    show_d_cols = ["provname", "kabname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
+    show_d_cols = ["prov", "kab", "provname", "kabname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
                    "EE_PBI", "IE_PBI", "EE_PIP", "IE_PIP"]
-    show_d = d[show_d_cols].copy().sort_values(["provname", "kabname"]).rename(
+    show_d = d[show_d_cols].copy().sort_values(["prov", "kab"]).drop(columns=["prov", "kab"]).rename(
         columns={"provname": "Province", "kabname": "District"}
     )
     for col in show_d_cols[2:]:
