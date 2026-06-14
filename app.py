@@ -106,6 +106,37 @@ div[data-testid="stInfo"] {
     background: #eef3fa;
     border-left: 4px solid #1a3358;
 }
+
+/* National metrics responsive grid */
+.nat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 0.3rem 0;
+}
+.nat-card {
+    background: #ffffff;
+    border: 1px solid #dde4ef;
+    border-top: 3px solid #c8a84b;
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    box-shadow: 0 1px 4px rgba(26,51,88,0.08);
+}
+.nat-lbl { color: #1a3358; font-weight: 600; font-size: 0.75rem; }
+.nat-val { color: #1a3358; font-size: 1.25rem; font-weight: 700; }
+/* Desktop: EE row then IE row */
+.nat-pkh-ee  { order:1; } .nat-bpnt-ee { order:2; }
+.nat-pbi-ee  { order:3; } .nat-pip-ee  { order:4; }
+.nat-pkh-ie  { order:5; } .nat-bpnt-ie { order:6; }
+.nat-pbi-ie  { order:7; } .nat-pip-ie  { order:8; }
+/* Mobile: EE/IE paired per program */
+@media (max-width: 768px) {
+    .nat-grid { grid-template-columns: 1fr 1fr; }
+    .nat-pkh-ee  { order:1; } .nat-pkh-ie  { order:2; }
+    .nat-bpnt-ee { order:3; } .nat-bpnt-ie { order:4; }
+    .nat-pbi-ee  { order:5; } .nat-pbi-ie  { order:6; }
+    .nat-pip-ee  { order:7; } .nat-pip-ie  { order:8; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -310,18 +341,26 @@ with _nat_col:
     st.markdown("<div style='padding-top:0.45rem;font-size:1rem;font-weight:700;color:#1a3358'>🇮🇩 National</div>",
                 unsafe_allow_html=True)
 
-ee1, ee2, ee3, ee4 = st.columns(4)
-ee1.metric("EE PKH",  f"{nat_m['EE_PKH']:.1f}%",  help="% of PKH target HH not receiving PKH")
-ee2.metric("EE BPNT", f"{nat_m['EE_BPNT']:.1f}%", help="% of BPNT target HH not receiving BPNT")
-ee3.metric("EE PBI",  f"{nat_m['EE_PBI']:.1f}%",  help="% of PBI target individuals not receiving PBI")
-ee4.metric("EE PIP",  f"{nat_m['EE_PIP']:.1f}%",  help="% of PIP target individuals not receiving PIP")
-
-st.markdown("<div style='margin-top:-1.4rem'></div>", unsafe_allow_html=True)
-ie1, ie2, ie3, ie4 = st.columns(4)
-ie1.metric("IE PKH",  f"{nat_m['IE_PKH']:.1f}%",  help="% of PKH recipients outside target")
-ie2.metric("IE BPNT", f"{nat_m['IE_BPNT']:.1f}%", help="% of BPNT recipients outside target")
-ie3.metric("IE PBI",  f"{nat_m['IE_PBI']:.1f}%",  help="% of PBI recipients outside target")
-ie4.metric("IE PIP",  f"{nat_m['IE_PIP']:.1f}%",  help="% of PIP recipients outside target")
+st.markdown(f"""
+<div class="nat-grid">
+  <div class="nat-card nat-pkh-ee"  title="% of PKH target HH not receiving PKH">
+    <div class="nat-lbl">EE PKH</div><div class="nat-val">{nat_m['EE_PKH']:.1f}%</div></div>
+  <div class="nat-card nat-bpnt-ee" title="% of BPNT target HH not receiving BPNT">
+    <div class="nat-lbl">EE BPNT</div><div class="nat-val">{nat_m['EE_BPNT']:.1f}%</div></div>
+  <div class="nat-card nat-pbi-ee"  title="% of PBI target individuals not receiving PBI">
+    <div class="nat-lbl">EE PBI</div><div class="nat-val">{nat_m['EE_PBI']:.1f}%</div></div>
+  <div class="nat-card nat-pip-ee"  title="% of PIP target individuals not receiving PIP">
+    <div class="nat-lbl">EE PIP</div><div class="nat-val">{nat_m['EE_PIP']:.1f}%</div></div>
+  <div class="nat-card nat-pkh-ie"  title="% of PKH recipients outside target">
+    <div class="nat-lbl">IE PKH</div><div class="nat-val">{nat_m['IE_PKH']:.1f}%</div></div>
+  <div class="nat-card nat-bpnt-ie" title="% of BPNT recipients outside target">
+    <div class="nat-lbl">IE BPNT</div><div class="nat-val">{nat_m['IE_BPNT']:.1f}%</div></div>
+  <div class="nat-card nat-pbi-ie"  title="% of PBI recipients outside target">
+    <div class="nat-lbl">IE PBI</div><div class="nat-val">{nat_m['IE_PBI']:.1f}%</div></div>
+  <div class="nat-card nat-pip-ie"  title="% of PIP recipients outside target">
+    <div class="nat-lbl">IE PIP</div><div class="nat-val">{nat_m['IE_PIP']:.1f}%</div></div>
+</div>
+""", unsafe_allow_html=True)
 
 st.caption(
     f"Target — PKH: {pkh_label} · BPNT: Decile 1–{bpnt_decile} · "
