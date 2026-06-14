@@ -329,30 +329,31 @@ st.markdown("---")
 # ── Tabs ──────────────────────────────────────────────────────────────────────
 tab_prov, tab_dist, tab_map, tab_incid, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📊 Incidences", "📖 Methodology & Data"])
 
-components.html("""
-<script>
-function injectLink() {
-    const tabList = window.parent.document.querySelector('[data-baseweb="tab-list"]');
-    if (!tabList || window.parent.document.getElementById('pmt-calc-link')) return;
-    const a = window.parent.document.createElement('a');
-    a.id = 'pmt-calc-link';
-    a.href = 'https://iecalculator.dewanekonomi.go.id/';
-    a.target = '_blank';
-    a.innerText = '🔗 IE/EE PMT Calculator ↗';
-    a.style.cssText = [
-        'font-size:0.78rem', 'font-weight:600', 'color:#1a3358',
-        'background:#f5ecd2', 'border:1px solid #c8a84b', 'border-radius:4px',
-        'padding:0.25rem 0.6rem', 'text-decoration:none', 'white-space:nowrap',
-        'margin-left:1rem', 'align-self:center', 'display:inline-flex', 'align-items:center'
-    ].join(';');
-    tabList.style.alignItems = 'center';
-    tabList.appendChild(a);
-}
-injectLink();
-setTimeout(injectLink, 300);
-setTimeout(injectLink, 1000);
-</script>
-""", height=0)
+# IE/EE PMT Calculator link — temporarily hidden
+# components.html("""
+# <script>
+# function injectLink() {
+#     const tabList = window.parent.document.querySelector('[data-baseweb="tab-list"]');
+#     if (!tabList || window.parent.document.getElementById('pmt-calc-link')) return;
+#     const a = window.parent.document.createElement('a');
+#     a.id = 'pmt-calc-link';
+#     a.href = 'https://iecalculator.dewanekonomi.go.id/';
+#     a.target = '_blank';
+#     a.innerText = '🔗 IE/EE PMT Calculator ↗';
+#     a.style.cssText = [
+#         'font-size:0.78rem', 'font-weight:600', 'color:#1a3358',
+#         'background:#f5ecd2', 'border:1px solid #c8a84b', 'border-radius:4px',
+#         'padding:0.25rem 0.6rem', 'text-decoration:none', 'white-space:nowrap',
+#         'margin-left:1rem', 'align-self:center', 'display:inline-flex', 'align-items:center'
+#     ].join(';');
+#     tabList.style.alignItems = 'center';
+#     tabList.appendChild(a);
+# }
+# injectLink();
+# setTimeout(injectLink, 300);
+# setTimeout(injectLink, 1000);
+# </script>
+# """, height=0)
 
 # ── Tab: Province ─────────────────────────────────────────────────────────────
 with tab_prov:
