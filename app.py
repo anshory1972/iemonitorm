@@ -373,6 +373,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+st.markdown("<div style='margin-top:0.6rem'></div>", unsafe_allow_html=True)
 st.caption("**EE** (Exclusion Error): % of target households/individuals not receiving the program. **IE** (Inclusion Error): % of program recipients who are outside the target group.")
 st.caption(
     f"Target — PKH: {pkh_label} · BPNT: Decile 1–{bpnt_decile} · "
