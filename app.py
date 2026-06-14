@@ -106,10 +106,6 @@ section[data-testid="stSidebar"] .stCheckbox {
     .modebar-container { display: none !important; }
 }
 
-/* Compact dataframe on mobile */
-@media (max-width: 768px) {
-    [data-testid="stDataFrame"] { font-size: 0.72rem !important; }
-}
 
 /* Info boxes */
 div[data-testid="stInfo"] {
