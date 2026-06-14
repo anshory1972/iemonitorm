@@ -428,7 +428,7 @@ with tab_prov:
             color=ee_col, color_continuous_scale=["#d6e0ef", "#1a3358"],
             labels={ee_col: "EE (%)", "provname": ""},
         )
-        fig_ee.update_layout(height=600, coloraxis_showscale=False,
+        fig_ee.update_layout(height=750, coloraxis_showscale=False,
                              margin=dict(l=0), yaxis=dict(tickfont=dict(size=9), tickmode="linear", dtick=1))
         st.plotly_chart(fig_ee, use_container_width=True)
 
@@ -440,7 +440,7 @@ with tab_prov:
             color=ie_col, color_continuous_scale=["#f5ecd2", "#c8a84b"],
             labels={ie_col: "IE (%)", "provname": ""},
         )
-        fig_ie.update_layout(height=600, coloraxis_showscale=False,
+        fig_ie.update_layout(height=750, coloraxis_showscale=False,
                              margin=dict(l=0), yaxis=dict(tickfont=dict(size=9), tickmode="linear", dtick=1))
         st.plotly_chart(fig_ie, use_container_width=True)
 
