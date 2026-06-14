@@ -28,9 +28,11 @@ st.markdown("""
 /* Section subheaders */
 h2, h3 { color: #1a3358 !important; margin-top: 0.4rem !important; }
 
-/* Hide hamburger menu and deploy button */
-#MainMenu { display: none !important; }
-[data-testid="stToolbar"] { display: none !important; }
+/* Hide hamburger menu and deploy button — desktop only so mobile keeps sidebar access */
+@media (min-width: 769px) {
+    #MainMenu { display: none !important; }
+    [data-testid="stToolbar"] { display: none !important; }
+}
 header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
@@ -39,6 +41,10 @@ header[data-testid="stHeader"] {
 @media (min-width: 769px) {
     [data-testid="collapsedControl"] { display: none !important; }
     section[data-testid="stSidebar"] button { display: none !important; }
+}
+/* On mobile: ensure sidebar toggle is always reachable */
+@media (max-width: 768px) {
+    [data-testid="collapsedControl"] { display: flex !important; }
 }
 
 .block-container { padding-top: 0.5rem !important; }
@@ -302,7 +308,7 @@ pkh_label = f"Decile 1–{pkh_decile}" + (" + comp_pkh" if use_comp_pkh else "")
 # ── Sidebar discovery hint (mobile only) ──────────────────────────────────────
 st.markdown("""
 <div id="sidebar-hint">
-  ℹ️ Target decile thresholds are adjustable — tap <strong>☰</strong> to open settings.
+  <span>ℹ️ Target decile thresholds are adjustable — tap <strong>☰</strong> to open settings.</span>
   <button onclick="
     document.getElementById('sidebar-hint').style.display='none';
     localStorage.setItem('sidebarHintDismissed','1');
