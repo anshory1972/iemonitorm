@@ -299,6 +299,17 @@ st.markdown(f"""
 
 pkh_label = f"Decile 1–{pkh_decile}" + (" + comp_pkh" if use_comp_pkh else "")
 
+# ── Sidebar discovery hint ─────────────────────────────────────────────────────
+if not st.session_state.get("sidebar_hint_dismissed", False):
+    hint_col, btn_col = st.columns([14, 1])
+    with hint_col:
+        st.info("ℹ️  Target decile thresholds are adjustable — open the sidebar (☰) to change them.")
+    with btn_col:
+        st.markdown("<div style='padding-top:0.55rem'></div>", unsafe_allow_html=True)
+        if st.button("✕", key="dismiss_hint", use_container_width=True):
+            st.session_state["sidebar_hint_dismissed"] = True
+            st.rerun()
+
 # ── National metrics (2 rows: EE / IE) ───────────────────────────────────────
 _yr_col, _nat_col = st.columns([2, 5])
 with _yr_col:
