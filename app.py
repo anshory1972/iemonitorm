@@ -458,9 +458,9 @@ with tab_prov:
         "PKH": _num, "BPNT": _num, "PBI": _num, "PIP": _num,
     }
     st.markdown("**Exclusion Error — EE (%)**")
-    st.dataframe(ee_show, hide_index=True, column_config=_col_cfg)
+    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
     st.markdown("**Inclusion Error — IE (%)**")
-    st.dataframe(ie_show, hide_index=True, column_config=_col_cfg)
+    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
 with tab_dist:
