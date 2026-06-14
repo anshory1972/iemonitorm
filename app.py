@@ -452,9 +452,9 @@ with tab_prov:
     ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(
         columns={"provname": "Province", "IE_PKH": "PKH", "IE_BPNT": "BPNT", "IE_PBI": "PBI", "IE_PIP": "PIP"})
 
-    _num = st.column_config.NumberColumn(format="%.1f")
+    _num = st.column_config.NumberColumn(format="%.1f", width=62)
     _col_cfg = {
-        "Province": st.column_config.TextColumn("Province", width=110),
+        "Province": st.column_config.TextColumn("Province", width=140),
         "PKH": _num, "BPNT": _num, "PBI": _num, "PIP": _num,
     }
     st.markdown("**Exclusion Error — EE (%)**")
