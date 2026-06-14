@@ -110,10 +110,8 @@ section[data-testid="stSidebar"] .stCheckbox {
 @media (max-width: 768px) {
     [data-testid="stDataFrame"] td,
     [data-testid="stDataFrame"] th { font-size: 0.72rem !important; }
-    [data-testid="stDataFrame"] td:first-child {
-        font-size: 0.7rem !important;
-        font-weight: 700 !important;
-    }
+    [data-testid="stDataFrame"] th { font-weight: 700 !important; }
+    [data-testid="stDataFrame"] td { font-weight: 400 !important; }
 }
 
 /* Info boxes */
@@ -454,14 +452,14 @@ with tab_prov:
     ee_show = base[["provname", "EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]].rename(columns={"provname": "Province"})
     ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(columns={"provname": "Province"})
     for col in ["EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]:
-        ee_show[col] = ee_show[col].map(lambda x: f"{x:.1f}%" if x is not None else "—")
+        ee_show[col] = ee_show[col].map(lambda x: f"{x:.1f}" if x is not None else "—")
     for col in ["IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]:
-        ie_show[col] = ie_show[col].map(lambda x: f"{x:.1f}%" if x is not None else "—")
+        ie_show[col] = ie_show[col].map(lambda x: f"{x:.1f}" if x is not None else "—")
 
     _prov_col = {"Province": st.column_config.TextColumn("Province", width=110)}
-    st.markdown("**Exclusion Error (EE)**")
+    st.markdown("**Exclusion Error — EE (%)**")
     st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_prov_col)
-    st.markdown("**Inclusion Error (IE)**")
+    st.markdown("**Inclusion Error — IE (%)**")
     st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_prov_col)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
