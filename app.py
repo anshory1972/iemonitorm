@@ -114,42 +114,6 @@ div[data-testid="stInfo"] {
     border-left: 4px solid #1a3358;
 }
 
-/* Metric card help tooltip */
-.nat-help {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 13px; height: 13px;
-    background: #dde4ef;
-    border-radius: 50%;
-    font-size: 0.6rem;
-    color: #1a3358;
-    cursor: help;
-    position: relative;
-    vertical-align: middle;
-    margin-left: 3px;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-.nat-help::after {
-    content: attr(data-tip);
-    display: none;
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a3358;
-    color: #fff;
-    padding: 5px 8px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    white-space: nowrap;
-    z-index: 999;
-    font-weight: 400;
-    pointer-events: none;
-}
-.nat-help:hover::after { display: block; }
-
 /* National metrics responsive grid */
 .nat-grid {
     display: grid;
@@ -391,24 +355,28 @@ with _nat_col:
 st.markdown(f"""
 <div class="nat-grid">
   <div class="nat-card nat-pkh-ee">
-    <div class="nat-lbl">EE PKH <span class="nat-help" data-tip="% of PKH target HH not receiving PKH">?</span></div><div class="nat-val">{nat_m['EE_PKH']:.1f}%</div></div>
+    <div class="nat-lbl">EE PKH</div><div class="nat-val">{nat_m['EE_PKH']:.1f}%</div></div>
   <div class="nat-card nat-bpnt-ee">
-    <div class="nat-lbl">EE BPNT <span class="nat-help" data-tip="% of BPNT target HH not receiving BPNT">?</span></div><div class="nat-val">{nat_m['EE_BPNT']:.1f}%</div></div>
+    <div class="nat-lbl">EE BPNT</div><div class="nat-val">{nat_m['EE_BPNT']:.1f}%</div></div>
   <div class="nat-card nat-pbi-ee">
-    <div class="nat-lbl">EE PBI <span class="nat-help" data-tip="% of PBI target individuals not receiving PBI">?</span></div><div class="nat-val">{nat_m['EE_PBI']:.1f}%</div></div>
+    <div class="nat-lbl">EE PBI</div><div class="nat-val">{nat_m['EE_PBI']:.1f}%</div></div>
   <div class="nat-card nat-pip-ee">
-    <div class="nat-lbl">EE PIP <span class="nat-help" data-tip="% of PIP target individuals not receiving PIP">?</span></div><div class="nat-val">{nat_m['EE_PIP']:.1f}%</div></div>
+    <div class="nat-lbl">EE PIP</div><div class="nat-val">{nat_m['EE_PIP']:.1f}%</div></div>
   <div class="nat-card nat-pkh-ie">
-    <div class="nat-lbl">IE PKH <span class="nat-help" data-tip="% of PKH recipients outside target">?</span></div><div class="nat-val">{nat_m['IE_PKH']:.1f}%</div></div>
+    <div class="nat-lbl">IE PKH</div><div class="nat-val">{nat_m['IE_PKH']:.1f}%</div></div>
   <div class="nat-card nat-bpnt-ie">
-    <div class="nat-lbl">IE BPNT <span class="nat-help" data-tip="% of BPNT recipients outside target">?</span></div><div class="nat-val">{nat_m['IE_BPNT']:.1f}%</div></div>
+    <div class="nat-lbl">IE BPNT</div><div class="nat-val">{nat_m['IE_BPNT']:.1f}%</div></div>
   <div class="nat-card nat-pbi-ie">
-    <div class="nat-lbl">IE PBI <span class="nat-help" data-tip="% of PBI recipients outside target">?</span></div><div class="nat-val">{nat_m['IE_PBI']:.1f}%</div></div>
+    <div class="nat-lbl">IE PBI</div><div class="nat-val">{nat_m['IE_PBI']:.1f}%</div></div>
   <div class="nat-card nat-pip-ie">
-    <div class="nat-lbl">IE PIP <span class="nat-help" data-tip="% of PIP recipients outside target">?</span></div><div class="nat-val">{nat_m['IE_PIP']:.1f}%</div></div>
+    <div class="nat-lbl">IE PIP</div><div class="nat-val">{nat_m['IE_PIP']:.1f}%</div></div>
 </div>
 """, unsafe_allow_html=True)
 
+st.caption(
+    "EE (Exclusion Error): % of target households/individuals not receiving the program. "
+    "IE (Inclusion Error): % of program recipients who are outside the target group."
+)
 st.caption(
     f"Target — PKH: {pkh_label} · BPNT: Decile 1–{bpnt_decile} · "
     f"PBI: Decile 1–{pbi_decile} · PIP: Decile 1–{pip_decile} + school-age"
