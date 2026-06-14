@@ -13,7 +13,7 @@ st.set_page_config(
     page_title="Indonesia Social Protection Targeting Monitor",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 st.markdown("""
@@ -35,9 +35,11 @@ header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
 }
-/* Hide sidebar collapse/expand buttons so it can't be accidentally closed */
-[data-testid="collapsedControl"] { display: none !important; }
-section[data-testid="stSidebar"] button { display: none !important; }
+/* On desktop: hide sidebar toggle so it can't be accidentally closed */
+@media (min-width: 769px) {
+    [data-testid="collapsedControl"] { display: none !important; }
+    section[data-testid="stSidebar"] button { display: none !important; }
+}
 
 .block-container { padding-top: 0.5rem !important; }
 
