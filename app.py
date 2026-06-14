@@ -28,11 +28,9 @@ st.markdown("""
 /* Section subheaders */
 h2, h3 { color: #1a3358 !important; margin-top: 0.4rem !important; }
 
-/* Hide hamburger menu and deploy button — desktop only so mobile keeps sidebar access */
-@media (min-width: 769px) {
-    #MainMenu { display: none !important; }
-    [data-testid="stToolbar"] { display: none !important; }
-}
+/* Hide hamburger menu and deploy button on all screens */
+#MainMenu { display: none !important; }
+[data-testid="stToolbar"] { display: none !important; }
 header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
