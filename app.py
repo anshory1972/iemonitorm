@@ -300,51 +300,6 @@ st.markdown(f"""
 
 pkh_label = f"Decile 1–{pkh_decile}" + (" + comp_pkh" if use_comp_pkh else "")
 
-# ── Sidebar discovery hint (mobile only) ──────────────────────────────────────
-st.markdown("""
-<div id="sidebar-hint">
-  <span>ℹ️ Target decile thresholds are adjustable — tap <strong>☰</strong> to open settings.</span>
-  <button onclick="
-    document.getElementById('sidebar-hint').style.display='none';
-    localStorage.setItem('sidebarHintDismissed','1');
-  ">✕</button>
-</div>
-<script>
-  (function() {
-    if (localStorage.getItem('sidebarHintDismissed')) {
-      var el = document.getElementById('sidebar-hint');
-      if (el) el.style.display = 'none';
-    }
-  })();
-</script>
-<style>
-#sidebar-hint {
-  display: none;
-  background: #eef3fa;
-  border-left: 4px solid #1a3358;
-  border-radius: 4px;
-  padding: 0.55rem 1rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.88rem;
-  color: #1a3358;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-@media (max-width: 768px) {
-  #sidebar-hint { display: flex !important; }
-}
-#sidebar-hint button {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #1a3358;
-  flex-shrink: 0;
-  padding: 0;
-}
-</style>
-""", unsafe_allow_html=True)
 
 # ── National metrics (2 rows: EE / IE) ───────────────────────────────────────
 _yr_col, _nat_col = st.columns([2, 5])
