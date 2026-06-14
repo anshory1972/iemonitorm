@@ -28,21 +28,18 @@ st.markdown("""
 /* Section subheaders */
 h2, h3 { color: #1a3358 !important; margin-top: 0.4rem !important; }
 
-/* Hide hamburger menu and deploy button on all screens */
+/* Hide deploy/fork/settings buttons everywhere, but NOT the sidebar toggle */
 #MainMenu { display: none !important; }
-[data-testid="stToolbar"] { display: none !important; }
+[data-testid="stToolbarActionButton"] { display: none !important; }
 header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
 }
-/* On desktop: hide sidebar toggle so it can't be accidentally closed */
+/* Desktop: hide entire toolbar (sidebar is always pinned open, no toggle needed) */
 @media (min-width: 769px) {
+    [data-testid="stToolbar"] { display: none !important; }
     [data-testid="collapsedControl"] { display: none !important; }
     section[data-testid="stSidebar"] button { display: none !important; }
-}
-/* On mobile: ensure sidebar toggle is always reachable */
-@media (max-width: 768px) {
-    [data-testid="collapsedControl"] { display: flex !important; }
 }
 
 .block-container { padding-top: 0.5rem !important; }
