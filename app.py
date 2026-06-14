@@ -410,7 +410,7 @@ with tab_dist:
     show_d = d[show_d_cols].copy().sort_values(["prov", "kab"]).drop(columns=["prov", "kab"]).rename(
         columns={"provname": "Province", "kabname": "District"}
     )
-    for col in show_d_cols[2:]:
+    for col in show_d_cols[4:]:
         show_d[col] = show_d[col].map(lambda x: f"{x:.1f}%" if x is not None else "—")
     st.dataframe(show_d, use_container_width=True, hide_index=True)
 
