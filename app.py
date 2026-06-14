@@ -214,7 +214,6 @@ with st.sidebar:
                              help="Target: school-aged individuals (pip_age=1) in selected deciles")
 
     st.markdown("<hr style='margin:0.4rem 0'>", unsafe_allow_html=True)
-    st.caption(f"Susenas Maret {sel_year} · PKH/BPNT: wh · PBI/PIP: wi")
 
 # ── Aggregation helpers (static) ──────────────────────────────────────────────
 HH_AGG = ["w_pkh_tgt", "w_bpnt_tgt", "w_pkh_rec", "w_bpnt_rec",
