@@ -325,7 +325,7 @@ st.caption(
 st.markdown("---")
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_prov, tab_dist, tab_map, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
+tab_prov, tab_dist, tab_map, tab_incid, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📊 Incidences", "📖 Methodology & Data"])
 
 components.html("""
 <script>
@@ -502,6 +502,71 @@ with tab_map:
             show_u = unmapped.copy().rename(columns={"provname": "Province", "kabname": "District"})
             show_u[metric_pct] = show_u[metric_pct].map(lambda x: f"{x:.1f}%")
             st.dataframe(show_u, use_container_width=True, hide_index=True)
+
+# ── Tab: Incidences ───────────────────────────────────────────────────────────
+with tab_incid:
+    st.caption("Share of population receiving each program by welfare decile — national. Target settings in the sidebar do not apply here.")
+
+    def incid_hh(col):
+        g = df_hh_raw.groupby("decile").apply(
+            lambda x: (x[col] * x["wh"]).sum() / x["wh"].sum() * 100
+        ).reset_index(name="pct")
+        g["not_pct"] = 100 - g["pct"]
+        return g
+
+    def incid_ind(col, mask=None):
+        d = df_ind_raw if mask is None else df_ind_raw[mask]
+        g = d.groupby("decile").apply(
+            lambda x: (x[col] * x["wi"]).sum() / x["wi"].sum() * 100
+        ).reset_index(name="pct")
+        g["not_pct"] = 100 - g["pct"]
+        return g
+
+    def stacked_chart(data, title, note=""):
+        fig = px.bar(
+            data.melt(id_vars="decile", value_vars=["pct", "not_pct"],
+                      var_name="status", value_name="share"),
+            x="decile", y="share", color="status",
+            color_discrete_map={"pct": "#1a3358", "not_pct": "#d6e0ef"},
+            labels={"decile": "Welfare decile", "share": "%", "status": ""},
+            title=title,
+            barmode="stack",
+        )
+        fig.update_layout(
+            height=320,
+            margin=dict(t=40, b=30, l=0, r=0),
+            yaxis=dict(range=[0, 100], ticksuffix="%"),
+            xaxis=dict(tickmode="linear", dtick=1),
+            legend=dict(orientation="h", y=-0.2,
+                        itemclick=False, itemdoubleclick=False),
+            showlegend=True,
+        )
+        fig.for_each_trace(lambda t: t.update(
+            name="Receiving" if t.name == "pct" else "Not receiving",
+            hovertemplate="%{y:.1f}%<extra>%{fullData.name}</extra>"
+        ))
+        if note:
+            fig.add_annotation(x=10, y=105, text=note, showarrow=False,
+                               font=dict(size=10, color="#888"), xanchor="right")
+        return fig
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.plotly_chart(stacked_chart(incid_hh("receive_pkh"),
+            "PKH — % of households receiving, by decile"), use_container_width=True)
+    with col2:
+        st.plotly_chart(stacked_chart(incid_hh("receive_bpnt"),
+            "BPNT — % of households receiving, by decile"), use_container_width=True)
+
+    col3, col4 = st.columns(2)
+    with col3:
+        st.plotly_chart(stacked_chart(incid_ind("receive_pbi"),
+            "PBI — % of individuals receiving, by decile"), use_container_width=True)
+    with col4:
+        st.plotly_chart(stacked_chart(
+            incid_ind("receive_pip", df_ind_raw["pip_age"] == 1),
+            "PIP — % of school-aged individuals receiving, by decile",
+            note="School-aged only (age 6–27)"), use_container_width=True)
 
 # ── Tab: Methodology & Data ───────────────────────────────────────────────────
 with tab_method:
