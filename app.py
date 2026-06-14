@@ -106,6 +106,16 @@ section[data-testid="stSidebar"] .stCheckbox {
     .modebar-container { display: none !important; }
 }
 
+/* Compact dataframe on mobile */
+@media (max-width: 768px) {
+    [data-testid="stDataFrame"] td,
+    [data-testid="stDataFrame"] th { font-size: 0.72rem !important; }
+    [data-testid="stDataFrame"] td:first-child {
+        font-size: 0.7rem !important;
+        font-weight: 700 !important;
+    }
+}
+
 /* Info boxes */
 div[data-testid="stInfo"] {
     background: #eef3fa;
@@ -448,10 +458,11 @@ with tab_prov:
     for col in ["IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]:
         ie_show[col] = ie_show[col].map(lambda x: f"{x:.1f}%" if x is not None else "—")
 
+    _prov_col = {"Province": st.column_config.TextColumn("Province", width=110)}
     st.markdown("**Exclusion Error (EE)**")
-    st.dataframe(ee_show, use_container_width=True, hide_index=True)
+    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_prov_col)
     st.markdown("**Inclusion Error (IE)**")
-    st.dataframe(ie_show, use_container_width=True, hide_index=True)
+    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_prov_col)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
 with tab_dist:
