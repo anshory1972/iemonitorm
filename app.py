@@ -331,7 +331,7 @@ st.markdown(f"""
                    vertical-align:middle;letter-spacing:0.05em">BETA</span>
     </div>
     <div style="font-size:0.85rem;color:#c8a84b;font-weight:600;margin-top:0.15rem">
-      Dewan Ekonomi Nasional &nbsp;·&nbsp; Susenas Maret {sel_year}
+      Dewan Ekonomi Nasional
     </div>
   </div>
 </div>""", unsafe_allow_html=True)
