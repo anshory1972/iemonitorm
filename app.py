@@ -452,15 +452,15 @@ with tab_prov:
     ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(
         columns={"provname": "Province", "IE_PKH": "PKH", "IE_BPNT": "BPNT", "IE_PBI": "PBI", "IE_PIP": "PIP"})
 
-    _num = st.column_config.NumberColumn(format="%.1f", width=62)
+    _num = st.column_config.NumberColumn(format="%.1f", width="small")
     _col_cfg = {
-        "Province": st.column_config.TextColumn("Province", width=140),
+        "Province": st.column_config.TextColumn("Province", width="medium"),
         "PKH": _num, "BPNT": _num, "PBI": _num, "PIP": _num,
     }
     st.markdown("**Exclusion Error — EE (%)**")
-    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
+    st.dataframe(ee_show, hide_index=True, column_config=_col_cfg)
     st.markdown("**Inclusion Error — IE (%)**")
-    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
+    st.dataframe(ie_show, hide_index=True, column_config=_col_cfg)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
 with tab_dist:
