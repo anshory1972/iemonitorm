@@ -106,6 +106,11 @@ section[data-testid="stSidebar"] .stCheckbox {
     .modebar-container { display: none !important; }
 }
 
+/* Smaller dataframe font on mobile */
+@media (max-width: 768px) {
+    [data-testid="stDataFrame"] * { font-size: 0.72rem !important; }
+}
+
 
 /* Info boxes */
 div[data-testid="stInfo"] {
@@ -442,18 +447,20 @@ with tab_prov:
     base = prov_df[["prov", "provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
                      "EE_PBI", "IE_PBI", "EE_PIP", "IE_PIP"]].copy().sort_values("prov")
 
-    ee_show = base[["provname", "EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]].rename(columns={"provname": "Province"})
-    ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(columns={"provname": "Province"})
-    for col in ["EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]:
-        ee_show[col] = ee_show[col].map(lambda x: f"{x:.1f}" if x is not None else "—")
-    for col in ["IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]:
-        ie_show[col] = ie_show[col].map(lambda x: f"{x:.1f}" if x is not None else "—")
+    ee_show = base[["provname", "EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]].rename(
+        columns={"provname": "Province", "EE_PKH": "PKH", "EE_BPNT": "BPNT", "EE_PBI": "PBI", "EE_PIP": "PIP"})
+    ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(
+        columns={"provname": "Province", "IE_PKH": "PKH", "IE_BPNT": "BPNT", "IE_PBI": "PBI", "IE_PIP": "PIP"})
 
-    _prov_col = {"Province": st.column_config.TextColumn("Province", width=110)}
+    _num = st.column_config.NumberColumn(format="%.1f")
+    _col_cfg = {
+        "Province": st.column_config.TextColumn("Province", width=110),
+        "PKH": _num, "BPNT": _num, "PBI": _num, "PIP": _num,
+    }
     st.markdown("**Exclusion Error — EE (%)**")
-    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_prov_col)
+    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
     st.markdown("**Inclusion Error — IE (%)**")
-    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_prov_col)
+    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
 with tab_dist:
