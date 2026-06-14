@@ -385,10 +385,10 @@ with tab_prov:
                              margin=dict(l=0), yaxis=dict(tickfont=dict(size=11)))
         st.plotly_chart(fig_ie, use_container_width=True)
 
-    show_cols = ["provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
+    show_cols = ["prov", "provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
                  "EE_PBI", "IE_PBI", "EE_PIP", "IE_PIP"]
-    show = prov_df[show_cols].copy().sort_values("provname").rename(columns={"provname": "Province"})
-    for col in show_cols[1:]:
+    show = prov_df[show_cols].copy().sort_values("prov").drop(columns=["prov"]).rename(columns={"provname": "Province"})
+    for col in show_cols[2:]:
         show[col] = show[col].map(lambda x: f"{x:.1f}%" if x is not None else "—")
     st.dataframe(show, use_container_width=True, hide_index=True)
 
