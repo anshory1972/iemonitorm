@@ -215,6 +215,7 @@ with st.sidebar:
 
     st.markdown("<hr style='margin:0.4rem 0'>", unsafe_allow_html=True)
     st.caption(f"March {sel_year}")
+    st.markdown("<div style='font-size:0.65rem;color:#6c757d;margin-top:0.2rem'>For inquiry, contact us at arief.yusuf@dewanekonomi.go.id</div>", unsafe_allow_html=True)
 
 # ── Aggregation helpers (static) ──────────────────────────────────────────────
 HH_AGG = ["w_pkh_tgt", "w_bpnt_tgt", "w_pkh_rec", "w_bpnt_rec",
