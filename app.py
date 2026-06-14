@@ -394,8 +394,8 @@ with tab_prov:
 with tab_dist:
     col_filter, col_search = st.columns([2, 3])
     with col_filter:
-        prov_sel = st.selectbox("Filter by Province",
-                                ["All"] + sorted(dist_df["provname"].unique()))
+        prov_order = dist_df[["prov", "provname"]].drop_duplicates().sort_values("prov")["provname"].tolist()
+        prov_sel = st.selectbox("Filter by Province", ["All"] + prov_order)
     with col_search:
         kab_search = st.text_input("Search district name", placeholder="e.g. Bandung")
 
