@@ -442,6 +442,7 @@ with tab_prov:
 
     base = prov_df[["prov", "provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
                      "EE_PBI", "IE_PBI", "EE_PIP", "IE_PIP"]].copy().sort_values("prov")
+    base["provname"] = base["provname"].str.replace("Kepulauan", "Kep.", case=False, regex=False)
 
     _num = st.column_config.NumberColumn(format="%.1f")
     _col_cfg = {
