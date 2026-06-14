@@ -489,6 +489,26 @@ with tab_dist:
 
 # ── Tab: Map ──────────────────────────────────────────────────────────────────
 with tab_map:
+    st.markdown("""
+<div class="mobile-landscape-tip">
+  🔄 For a better map experience, rotate your phone to <strong>landscape</strong> mode.
+</div>
+<style>
+.mobile-landscape-tip {
+    display: none;
+    background: #eef3fa;
+    border-left: 4px solid #1a3358;
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    color: #1a3358;
+    margin-bottom: 0.5rem;
+}
+@media (max-width: 768px) {
+    .mobile-landscape-tip { display: block; }
+}
+</style>
+""", unsafe_allow_html=True)
     map_col1, map_col2, map_col3 = st.columns([1, 1, 2])
     with map_col1:
         map_prog  = st.radio("Program", ["PKH", "BPNT", "PBI", "PIP"], horizontal=True, key="map_prog")
