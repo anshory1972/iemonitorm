@@ -106,16 +106,19 @@ div[data-testid="stInfo"] {
 </style>
 """, unsafe_allow_html=True)
 
+# ── Year selection (read state before data load) ───────────────────────────────
+sel_year = "2024" if st.session_state.get("year_sel", "March 2025") == "March 2024" else "2025"
+
 # ── Data loading ──────────────────────────────────────────────────────────────
 @st.cache_data
-def load_hh_data():
-    df = pd.read_parquet("rawdata/susmar2025.parquet")
+def load_hh_data(year):
+    df = pd.read_parquet(f"rawdata/susmar{year}.parquet")
     df["pcode"] = "ID" + df["prov"].astype(str).str.zfill(2) + df["kab"].astype(str).str.zfill(2)
     return df
 
 @st.cache_data
-def load_ind_data():
-    df = pd.read_parquet("rawdata/susmar2025ind.parquet")
+def load_ind_data(year):
+    df = pd.read_parquet(f"rawdata/susmar{year}ind.parquet")
     df["pcode"] = "ID" + df["prov"].astype(str).str.zfill(2) + df["kab"].astype(str).str.zfill(2)
     return df
 
@@ -124,8 +127,8 @@ def load_geo():
     with open("data/indonesia_adm2.geojson", encoding="utf-8") as f:
         return json.load(f)
 
-df_hh_raw  = load_hh_data()
-df_ind_raw = load_ind_data()
+df_hh_raw  = load_hh_data(sel_year)
+df_ind_raw = load_ind_data(sel_year)
 geo        = load_geo()
 GEO_PCODES = {f["properties"]["pcode"] for f in geo["features"]}
 
@@ -170,7 +173,7 @@ with st.sidebar:
                              help="Target: school-aged individuals (pip_age=1) in selected deciles")
 
     st.markdown("<hr style='margin:0.4rem 0'>", unsafe_allow_html=True)
-    st.caption("Susenas Maret 2025 · PKH/BPNT: wh · PBI/PIP: wi")
+    st.caption(f"Susenas Maret {sel_year} · PKH/BPNT: wh · PBI/PIP: wi")
 
 # ── Aggregation helpers (static) ──────────────────────────────────────────────
 HH_AGG = ["w_pkh_tgt", "w_bpnt_tgt", "w_pkh_rec", "w_bpnt_rec",
@@ -287,7 +290,7 @@ st.markdown(f"""
                    vertical-align:middle;letter-spacing:0.05em">BETA</span>
     </div>
     <div style="font-size:0.85rem;color:#c8a84b;font-weight:600;margin-top:0.15rem">
-      Dewan Ekonomi Nasional &nbsp;·&nbsp; Susenas Maret 2025
+      Dewan Ekonomi Nasional &nbsp;·&nbsp; Susenas Maret {sel_year}
     </div>
   </div>
 </div>""", unsafe_allow_html=True)
@@ -295,14 +298,13 @@ st.markdown(f"""
 pkh_label = f"Decile 1–{pkh_decile}" + (" + comp_pkh" if use_comp_pkh else "")
 
 # ── National metrics (2 rows: EE / IE) ───────────────────────────────────────
-st.markdown("""
-<div style="display:flex;align-items:center;gap:0.7rem;margin:0.2rem 0 0.3rem">
-  <span style="font-size:1rem;font-weight:700;color:#1a3358">🇮🇩 National</span>
-  <span style="font-size:0.78rem;font-weight:600;color:#ffffff;background:#1a3358;
-               border:1px solid #c8a84b;border-radius:4px;padding:0.1rem 0.5rem;letter-spacing:0.02em">
-    Susenas March 2025
-  </span>
-</div>""", unsafe_allow_html=True)
+_yr_col, _nat_col = st.columns([2, 5])
+with _yr_col:
+    st.radio("", ["March 2025", "March 2024"], key="year_sel",
+             horizontal=True, label_visibility="collapsed")
+with _nat_col:
+    st.markdown("<div style='padding-top:0.45rem;font-size:1rem;font-weight:700;color:#1a3358'>🇮🇩 National</div>",
+                unsafe_allow_html=True)
 
 ee1, ee2, ee3, ee4 = st.columns(4)
 ee1.metric("EE PKH",  f"{nat_m['EE_PKH']:.1f}%",  help="% of PKH target HH not receiving PKH")
@@ -568,26 +570,36 @@ with tab_incid:
             "PIP — % of school-aged individuals receiving, by decile",
             note="School-aged only (age 6–27)"), use_container_width=True)
 
+# ── Year-specific variable names for methodology ──────────────────────────────
+if sel_year == "2024":
+    _pkh_var, _bpnt_var, _pip_var = "R2203", "R2208A2–A5", "R616"
+    _sch_var1, _sch_var2 = "R610", "R612"
+    _hh_n, _ind_n = "~343,000", "~1.21 million"
+else:
+    _pkh_var, _bpnt_var, _pip_var = "R2002", "R2006A2–A5", "R619"
+    _sch_var1, _sch_var2 = "R611", "R613"
+    _hh_n, _ind_n = "~343,000", "~1.17 million"
+
 # ── Tab: Methodology & Data ───────────────────────────────────────────────────
 with tab_method:
-    st.markdown("""
+    st.markdown(f"""
 <div style="border-left:4px solid #c8a84b;padding:0.6rem 1rem;background:#f8f5ec;
             border-radius:0 6px 6px 0;margin-bottom:1.2rem">
 <strong style="color:#1a3358">About this dashboard</strong><br>
 <span style="font-size:0.9rem">This monitor tracks targeting accuracy — how well Indonesia's four main social
 protection programs reach their intended beneficiaries — using microdata from
-Susenas Maret 2025.</span>
+Susenas Maret {sel_year}.</span>
 </div>
 """, unsafe_allow_html=True)
 
     with st.expander("1. Data Source", expanded=True):
-        st.markdown("""
-**Survey:** Susenas Maret 2025 (National Socioeconomic Survey, March wave)
+        st.markdown(f"""
+**Survey:** Susenas Maret {sel_year} (National Socioeconomic Survey, March wave)
 **Publisher:** Badan Pusat Statistik (BPS)
 **Coverage:** National, representative at district level
 **Sample:**
-- Household file: ~343,000 households
-- Individual file: ~1.17 million individuals
+- Household file: {_hh_n} households
+- Individual file: {_ind_n} individuals
 
 **Key variables used:**
 
@@ -596,12 +608,12 @@ Susenas Maret 2025.</span>
 | `KAPITA` | Blok 4.3 | Nominal household expenditure per capita |
 | `WERT` | KOR RT | Household sampling weight |
 | `WEIND` / `FWT` | KOR IND | Individual / person sampling weight |
-| `R2002` | KOR RT | Received PKH last year |
-| `R2006A2–A5` | KOR RT | Received BPNT (Jan this year / Oct–Dec last year) |
+| `{_pkh_var}` | KOR RT | Received PKH last year |
+| `{_bpnt_var}` | KOR RT | Received BPNT (Jan this year / Oct–Dec last year) |
 | `R1101_A` | KOR IND | Received PBI health insurance subsidy |
-| `R619` | KOR IND | Received PIP school assistance |
+| `{_pip_var}` | KOR IND | Received PIP school assistance |
 | `R407` | KOR IND | Age |
-| `R611`, `R613` | KOR IND | Currently in school; highest school level attended |
+| `{_sch_var1}`, `{_sch_var2}` | KOR IND | Currently in school; highest school level attended |
 """)
 
     with st.expander("2. Welfare Measure and Deciles", expanded=True):
@@ -621,7 +633,7 @@ representative decile cut-offs.  Decile 1 = poorest 10%; Decile 10 = richest 10%
 """)
 
     with st.expander("3. Program Definitions and Eligibility Flags", expanded=True):
-        st.markdown("""
+        st.markdown(f"""
 **PKH — Program Keluarga Harapan (Conditional Cash Transfer)**
 
 A household is flagged as a PKH target if it falls within the selected
@@ -630,7 +642,7 @@ eligibility (`comp_pkh`): child aged ≤ 5, school-enrolled member at SD–SMA
 (school level 1–17), or elderly member aged > 60. The sidebar checkbox enables
 or disables this demographic condition.
 
-Receipt flag: `receive_pkh = 1` if R2002 = 1 (received PKH last year).
+Receipt flag: `receive_pkh = 1` if `{_pkh_var}` = 1 (received PKH last year).
 
 ---
 
@@ -640,7 +652,7 @@ A household is a BPNT target if it falls within the selected welfare decile
 threshold (no additional demographic condition).
 
 Receipt flag: `receive_bpnt = 1` if the household received BPNT in January
-of the survey year or in October–December of the previous year (R2006A2–A5),
+of the survey year or in October–December of the previous year (`{_bpnt_var}`),
 covering the typical quarterly distribution cycle.
 
 ---
@@ -650,7 +662,7 @@ covering the typical quarterly distribution cycle.
 An individual is a PBI target if they fall within the selected welfare decile
 threshold. Unit of analysis: individual (weight `FWT`).
 
-Receipt flag: `receive_pbi = 1` if R1101_A = "A" (government-subsidised BPJS Kesehatan).
+Receipt flag: `receive_pbi = 1` if `R1101_A` = "A" (government-subsidised BPJS Kesehatan).
 
 ---
 
@@ -660,7 +672,7 @@ An individual is a PIP target if they are school-aged (`pip_age = 1`,
 age 6–27) and fall within the selected welfare decile threshold.
 Unit of analysis: individual (weight `FWT`).
 
-Receipt flag: `receive_pip = 1` if R619 = 1.
+Receipt flag: `receive_pip = 1` if `{_pip_var}` = 1.
 """)
 
     with st.expander("4. Targeting Error Formulas", expanded=True):
