@@ -375,8 +375,7 @@ st.markdown(f"""
 
 st.markdown(f"""
 <div style='margin-top:0.6rem;font-size:0.8rem;line-height:1.5'>
-  <span style='color:#6c757d'><strong>EE</strong> (Exclusion Error): % of target households/individuals not receiving the program.
-  <strong>IE</strong> (Inclusion Error): % of program recipients who are outside the target group.</span><br>
+  <span style='color:#6c757d'><strong>EE</strong> = Exclusion Error or under-coverage (eligible but not receiving). <strong>IE</strong> = Inclusion Error or leakage (receiving but not eligible).</span><br>
   <span style='color:#c8a84b'>Target — PKH: {pkh_label} &middot; BPNT: Decile 1–{bpnt_decile} &middot;
   PBI: Decile 1–{pbi_decile} &middot; PIP: Decile 1–{pip_decile} + school-age &nbsp;·&nbsp; Change target settings in the sidebar.</span>
 </div>
