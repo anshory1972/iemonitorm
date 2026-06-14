@@ -106,10 +106,6 @@ section[data-testid="stSidebar"] .stCheckbox {
     .modebar-container { display: none !important; }
 }
 
-/* Smaller dataframe font on mobile */
-@media (max-width: 768px) {
-    [data-testid="stDataFrame"] * { font-size: 0.72rem !important; }
-}
 
 
 /* Info boxes */
@@ -447,35 +443,20 @@ with tab_prov:
     base = prov_df[["prov", "provname", "EE_PKH", "IE_PKH", "EE_BPNT", "IE_BPNT",
                      "EE_PBI", "IE_PBI", "EE_PIP", "IE_PIP"]].copy().sort_values("prov")
 
-    def prov_table_html(df, cols, rename):
-        th = "padding:5px 6px;border-bottom:2px solid #1a3358;color:#1a3358;font-size:0.78rem;white-space:nowrap"
-        td_p = "padding:4px 6px;border-bottom:1px solid #eee;font-size:0.78rem;width:38%"
-        td_n = "padding:4px 6px;border-bottom:1px solid #eee;font-size:0.78rem;text-align:right;width:15.5%"
-        rows = ""
-        for _, r in df[cols].iterrows():
-            vals = "".join(
-                f"<td style='{td_p}'>{r[c]}</td>" if c == "provname"
-                else f"<td style='{td_n}'>{r[c]:.1f}</td>" if r[c] is not None
-                else f"<td style='{td_n}'>—</td>"
-                for c in cols
-            )
-            rows += f"<tr>{vals}</tr>"
-        headers = "".join(
-            f"<th style='{th};text-align:left'>{rename.get(c,c)}</th>" if c == "provname"
-            else f"<th style='{th};text-align:right'>{rename.get(c,c)}</th>"
-            for c in cols
-        )
-        return f"<table style='width:100%;border-collapse:collapse'><thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table>"
-
-    ee_cols = ["provname", "EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]
-    ie_cols = ["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]
-    rename  = {"provname": "Province", "EE_PKH": "PKH", "EE_BPNT": "BPNT", "EE_PBI": "PBI", "EE_PIP": "PIP",
-                                        "IE_PKH": "PKH", "IE_BPNT": "BPNT", "IE_PBI": "PBI", "IE_PIP": "PIP"}
+    _num = st.column_config.NumberColumn(format="%.1f")
+    _col_cfg = {
+        "Province": st.column_config.TextColumn("Province"),
+        "PKH": _num, "BPNT": _num, "PBI": _num, "PIP": _num,
+    }
+    ee_show = base[["provname", "EE_PKH", "EE_BPNT", "EE_PBI", "EE_PIP"]].rename(
+        columns={"provname": "Province", "EE_PKH": "PKH", "EE_BPNT": "BPNT", "EE_PBI": "PBI", "EE_PIP": "PIP"})
+    ie_show = base[["provname", "IE_PKH", "IE_BPNT", "IE_PBI", "IE_PIP"]].rename(
+        columns={"provname": "Province", "IE_PKH": "PKH", "IE_BPNT": "BPNT", "IE_PBI": "PBI", "IE_PIP": "PIP"})
 
     st.markdown("**Exclusion Error — EE (%)**")
-    st.markdown(prov_table_html(base, ee_cols, rename), unsafe_allow_html=True)
+    st.dataframe(ee_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
     st.markdown("**Inclusion Error — IE (%)**")
-    st.markdown(prov_table_html(base, ie_cols, rename), unsafe_allow_html=True)
+    st.dataframe(ie_show, use_container_width=True, hide_index=True, column_config=_col_cfg)
 
 # ── Tab: District ─────────────────────────────────────────────────────────────
 with tab_dist:
