@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import plotly.express as px
 import json
@@ -324,19 +325,32 @@ st.caption(
 st.markdown("---")
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_col, link_col = st.columns([8, 2])
-with tab_col:
-    tab_prov, tab_dist, tab_map, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
-with link_col:
-    st.markdown("""
-<div style="padding-top:0.6rem;text-align:right">
-<a href="https://iecalculator.dewanekonomi.go.id/" target="_blank"
-   style="font-size:0.78rem;font-weight:600;color:#1a3358;background:#f5ecd2;
-          border:1px solid #c8a84b;border-radius:4px;padding:0.3rem 0.6rem;
-          text-decoration:none;white-space:nowrap">
-  🔗 IE/EE PMT Calculator ↗
-</a>
-</div>""", unsafe_allow_html=True)
+tab_prov, tab_dist, tab_map, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
+
+components.html("""
+<script>
+function injectLink() {
+    const tabList = window.parent.document.querySelector('[data-baseweb="tab-list"]');
+    if (!tabList || window.parent.document.getElementById('pmt-calc-link')) return;
+    const a = window.parent.document.createElement('a');
+    a.id = 'pmt-calc-link';
+    a.href = 'https://iecalculator.dewanekonomi.go.id/';
+    a.target = '_blank';
+    a.innerText = '🔗 IE/EE PMT Calculator ↗';
+    a.style.cssText = [
+        'font-size:0.78rem', 'font-weight:600', 'color:#1a3358',
+        'background:#f5ecd2', 'border:1px solid #c8a84b', 'border-radius:4px',
+        'padding:0.25rem 0.6rem', 'text-decoration:none', 'white-space:nowrap',
+        'margin-left:1rem', 'align-self:center', 'display:inline-flex', 'align-items:center'
+    ].join(';');
+    tabList.style.alignItems = 'center';
+    tabList.appendChild(a);
+}
+injectLink();
+setTimeout(injectLink, 300);
+setTimeout(injectLink, 1000);
+</script>
+""", height=0)
 
 # ── Tab: Province ─────────────────────────────────────────────────────────────
 with tab_prov:
