@@ -324,7 +324,19 @@ st.caption(
 st.markdown("---")
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_prov, tab_dist, tab_map, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
+tab_col, link_col = st.columns([8, 2])
+with tab_col:
+    tab_prov, tab_dist, tab_map, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
+with link_col:
+    st.markdown("""
+<div style="padding-top:0.6rem;text-align:right">
+<a href="https://iecalculator.dewanekonomi.go.id/" target="_blank"
+   style="font-size:0.78rem;font-weight:600;color:#1a3358;background:#f5ecd2;
+          border:1px solid #c8a84b;border-radius:4px;padding:0.3rem 0.6rem;
+          text-decoration:none;white-space:nowrap">
+  🔗 IE/EE PMT Calculator ↗
+</a>
+</div>""", unsafe_allow_html=True)
 
 # ── Tab: Province ─────────────────────────────────────────────────────────────
 with tab_prov:
