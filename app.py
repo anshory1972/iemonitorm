@@ -101,6 +101,11 @@ section[data-testid="stSidebar"] .stCheckbox {
     border-bottom: 3px solid #c8a84b;
 }
 
+/* Hide Plotly modebar on mobile */
+@media (max-width: 768px) {
+    .modebar-container { display: none !important; }
+}
+
 /* Info boxes */
 div[data-testid="stInfo"] {
     background: #eef3fa;
