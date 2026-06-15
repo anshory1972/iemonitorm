@@ -385,7 +385,7 @@ st.markdown(f"""
 st.markdown("---")
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_prov, tab_dist, tab_map, tab_incid, tab_method = st.tabs(["🏙️ Province", "🗂️ District", "🗺️ Map", "📊 Incidences", "📖 Methodology & Data"])
+tab_incid, tab_prov, tab_dist, tab_map, tab_method = st.tabs(["📊 Incidences", "🏙️ Province", "🗂️ District", "🗺️ Map", "📖 Methodology & Data"])
 
 # IE/EE PMT Calculator link — temporarily hidden
 # components.html("""
