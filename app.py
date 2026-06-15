@@ -635,6 +635,7 @@ with tab_incid:
             showlegend=True,
             plot_bgcolor="#f0f4f8",
             paper_bgcolor="#f0f4f8",
+            title_font_size=13,
         )
         fig.for_each_trace(lambda t: t.update(
             name="Receiving" if t.name == "pct" else "Not receiving",
