@@ -681,8 +681,7 @@ with tab_method:
 <div style="border-left:4px solid #c8a84b;padding:0.6rem 1rem;background:#f8f5ec;
             border-radius:0 6px 6px 0;margin-bottom:1.2rem">
 <strong style="color:#1a3358">About this dashboard</strong><br>
-<span style="font-size:0.9rem">The National Economic Council (<em>Dewan Ekonomi Nasional</em> — DEN) is mandated
-is <a href="https://dewanekonomi.go.id/profil/struktur-organisasi" target="_blank" style="color:#c8a84b">mandated</a> to monitor and evaluate the Indonesian government's strategic programs, including social protection programs. This dashboard is part of that monitoring effort, tracking
+<span style="font-size:0.9rem">The National Economic Council (<em>Dewan Ekonomi Nasional</em> — DEN) is <a href="https://dewanekonomi.go.id/profil/struktur-organisasi" target="_blank" style="color:#c8a84b">mandated</a> to monitor and evaluate the Indonesian government's strategic programs, including social protection programs. This dashboard is part of that monitoring effort, tracking
 <strong>targeting accuracy</strong> — how well Indonesia's four main social protection programs
 (PKH, BPNT, PBI, and PIP) reach their intended beneficiaries.</span>
 </div>
