@@ -682,11 +682,11 @@ with tab_method:
             border-radius:0 6px 6px 0;margin-bottom:1.2rem">
 <strong style="color:#1a3358">About this dashboard</strong><br>
 <span style="font-size:0.9rem">The National Economic Council (<em>Dewan Ekonomi Nasional</em> — DEN) is mandated
-to monitor and evaluate the Indonesian government's strategic programs. Social protection
-is one of its core focus areas, given its central role in reducing poverty and inequality.<br><br>
-This dashboard is part of that monitoring effort. It tracks <strong>targeting accuracy</strong> —
-how well Indonesia's four main social protection programs (PKH, BPNT, PBI, and PIP)
-reach their intended beneficiaries — using microdata from Susenas Maret {sel_year}.</span>
+to monitor and evaluate the Indonesian government's strategic programs, with social protection
+as one of its core focus areas. This dashboard is part of that monitoring effort, tracking
+<strong>targeting accuracy</strong> — how well Indonesia's four main social protection programs
+(PKH, BPNT, PBI, and PIP) reach their intended beneficiaries — using microdata from
+Susenas Maret {sel_year}.</span>
 </div>
 """, unsafe_allow_html=True)
 
