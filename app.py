@@ -633,8 +633,6 @@ with tab_incid:
             legend=dict(orientation="h", y=-0.2,
                         itemclick=False, itemdoubleclick=False),
             showlegend=True,
-            plot_bgcolor="#f0f4f8",
-            paper_bgcolor="#f0f4f8",
             title_font_size=13,
         )
         fig.for_each_trace(lambda t: t.update(
@@ -645,6 +643,8 @@ with tab_incid:
             fig.add_annotation(x=10, y=105, text=note, showarrow=False,
                                font=dict(size=10, color="#888"), xanchor="right")
         return fig
+
+    st.markdown("<hr style='border:none;border-top:2px solid #c8a84b;margin:0.4rem 0'>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -663,6 +663,8 @@ with tab_incid:
             incid_ind("receive_pip", df_ind_raw["pip_age"] == 1),
             "PIP — % of school-aged individuals receiving, by decile",
             note="School-aged only (age 6–27)"), use_container_width=True)
+
+    st.markdown("<hr style='border:none;border-top:2px solid #c8a84b;margin:0.4rem 0'>", unsafe_allow_html=True)
 
 # ── Year-specific variable names for methodology ──────────────────────────────
 if sel_year == "2024":
