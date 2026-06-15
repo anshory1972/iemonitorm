@@ -644,7 +644,7 @@ with tab_incid:
                                font=dict(size=10, color="#888"), xanchor="right")
         return fig
 
-    st.markdown("<hr style='border:none;border-top:2px solid #c8a84b;margin:0.4rem 0'>", unsafe_allow_html=True)
+    st.markdown("<hr style='border:none;border-top:1px solid #c8a84b;margin:0.4rem 0'>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -664,7 +664,6 @@ with tab_incid:
             "PIP — % of school-aged individuals receiving, by decile",
             note="School-aged only (age 6–27)"), use_container_width=True)
 
-    st.markdown("<hr style='border:none;border-top:2px solid #c8a84b;margin:0.4rem 0'>", unsafe_allow_html=True)
 
 # ── Year-specific variable names for methodology ──────────────────────────────
 if sel_year == "2024":
