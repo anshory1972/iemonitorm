@@ -347,7 +347,7 @@ with _yr_col:
     st.radio("", ["March 2025", "March 2024", "March 2023"], key="year_sel",
              horizontal=True, label_visibility="collapsed")
 with _nat_col:
-    st.markdown("""<div style='padding-top:0.45rem;font-size:1rem;font-weight:700;color:#1a3358'>
+    st.markdown("""<div style='padding-top:0.45rem;font-size:1rem;font-weight:700;color:#1a3358;text-align:right'>
 <span style='display:inline-block;width:1.3em;height:0.9em;
              background:linear-gradient(#ce1126 50%,#ffffff 50%);
              border:1px solid #ccc;border-radius:2px;
