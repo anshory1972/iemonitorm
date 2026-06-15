@@ -633,6 +633,8 @@ with tab_incid:
             legend=dict(orientation="h", y=-0.2,
                         itemclick=False, itemdoubleclick=False),
             showlegend=True,
+            plot_bgcolor="#f0f4f8",
+            paper_bgcolor="#f0f4f8",
         )
         fig.for_each_trace(lambda t: t.update(
             name="Receiving" if t.name == "pct" else "Not receiving",
