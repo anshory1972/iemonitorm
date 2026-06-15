@@ -337,7 +337,7 @@ st.markdown(f"""
   </div>
 </div>""", unsafe_allow_html=True)
 
-pkh_label = f"Decile 1–{pkh_decile}" + (" + comp_pkh" if use_comp_pkh else "")
+pkh_label = f"Decile 1–{pkh_decile}" + (" + conditionality" if use_comp_pkh else "")
 
 
 # ── National metrics (2 rows: EE / IE) ───────────────────────────────────────
