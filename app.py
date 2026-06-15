@@ -197,7 +197,7 @@ with st.sidebar:
                 unsafe_allow_html=True)
     pkh_decile   = st.slider("Bottom decile", 1, 10, 4, key="pkh_dec",
                              help="Households in decile 1 up to this value are PKH targets")
-    use_comp_pkh = st.checkbox("Require household eligibility", value=True,
+    use_comp_pkh = st.checkbox("Require household conditionality", value=True,
                                help="Household must have: child ≤5, school-enrolled member (SD–SMA), or elderly >60")
 
     st.markdown("<div style='font-size:0.78rem;font-weight:600;margin-top:0.3rem'>BPNT (Food Voucher)</div>",
