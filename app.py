@@ -148,7 +148,8 @@ div[data-testid="stInfo"] {
 """, unsafe_allow_html=True)
 
 # ── Year selection (read state before data load) ───────────────────────────────
-sel_year = "2024" if st.session_state.get("year_sel", "March 2025") == "March 2024" else "2025"
+_yr_map  = {"March 2023": "2023", "March 2024": "2024", "March 2025": "2025"}
+sel_year = _yr_map.get(st.session_state.get("year_sel", "March 2025"), "2025")
 
 # ── Data loading ──────────────────────────────────────────────────────────────
 @st.cache_data
@@ -341,9 +342,9 @@ pkh_label = f"Decile 1–{pkh_decile}" + (" + conditionality" if use_comp_pkh el
 
 
 # ── National metrics (2 rows: EE / IE) ───────────────────────────────────────
-_yr_col, _nat_col = st.columns([2, 5])
+_yr_col, _nat_col = st.columns([3, 4])
 with _yr_col:
-    st.radio("", ["March 2025", "March 2024"], key="year_sel",
+    st.radio("", ["March 2025", "March 2024", "March 2023"], key="year_sel",
              horizontal=True, label_visibility="collapsed")
 with _nat_col:
     st.markdown("""<div style='padding-top:0.45rem;font-size:1rem;font-weight:700;color:#1a3358'>
@@ -670,6 +671,10 @@ if sel_year == "2024":
     _pkh_var, _bpnt_var, _pip_var = "R2203", "R2208A2–A5", "R616"
     _sch_var1, _sch_var2 = "R610", "R612"
     _hh_n, _ind_n = "~343,000", "~1.21 million"
+elif sel_year == "2023":
+    _pkh_var, _bpnt_var, _pip_var = "R2002", "R2006A2–A5", "R619"
+    _sch_var1, _sch_var2 = "R611", "R613"
+    _hh_n, _ind_n = "~342,000", "~1.22 million"
 else:
     _pkh_var, _bpnt_var, _pip_var = "R2002", "R2006A2–A5", "R619"
     _sch_var1, _sch_var2 = "R611", "R613"
