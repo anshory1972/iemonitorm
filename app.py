@@ -620,7 +620,7 @@ with tab_incid:
             data.melt(id_vars="decile", value_vars=["pct", "not_pct"],
                       var_name="status", value_name="share"),
             x="decile", y="share", color="status",
-            color_discrete_map={"pct": "#1a3358", "not_pct": "#f5ecd2"},
+            color_discrete_map={"pct": "#1a3358", "not_pct": "#c8a84b"},
             labels={"decile": "Welfare decile", "share": "%", "status": ""},
             title=title,
             barmode="stack",
